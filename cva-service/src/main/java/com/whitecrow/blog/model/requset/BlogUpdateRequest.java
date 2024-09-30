@@ -15,10 +15,6 @@ public class BlogUpdateRequest implements Serializable {
      */
     private Long id;
     /**
-     * 用户id
-     */
-    private Long userId;
-    /**
      * 标题
      */
     private String title;

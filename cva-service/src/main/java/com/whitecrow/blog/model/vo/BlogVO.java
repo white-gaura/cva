@@ -18,7 +18,7 @@ public class BlogVO implements Serializable {
     private Long id;
 
     /**
-     * 用户id
+     * 用户id(作者)
      */
     private UserVO user;
 
@@ -44,15 +44,11 @@ public class BlogVO implements Serializable {
      * 点赞数量
      */
     private String likedNum;
-    /**
-     * 是否已经点赞
-     */
-    private Boolean isLikeBlog;
 
     /**
      * 评论数量
      */
-    private String commentsNum;
+//    private String commentsNum;
 
     /**
      * todo 评论内容

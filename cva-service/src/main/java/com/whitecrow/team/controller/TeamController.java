@@ -8,15 +8,15 @@ import com.whitecrow.common.DeleteRequest;
 import com.whitecrow.common.ErrorCode;
 import com.whitecrow.common.ResultUtils;
 import com.whitecrow.exception.BusinessException;
-import com.whitecrow.model.domain.Team;
-import com.whitecrow.model.domain.User;
-import com.whitecrow.model.domain.UserTeam;
+import com.whitecrow.team.model.domain.Team;
+import com.whitecrow.user.model.domain.User;
+import com.whitecrow.user.model.domain.UserTeam;
 import com.whitecrow.team.model.dto.TeamQuery;
-import com.whitecrow.team.request.TeamAddRequest;
+import com.whitecrow.team.model.request.TeamAddRequest;
 
-import com.whitecrow.team.request.TeamJoinRequest;
-import com.whitecrow.team.request.TeamQuitRequest;
-import com.whitecrow.team.request.TeamUpdateRequest;
+import com.whitecrow.team.model.request.TeamJoinRequest;
+import com.whitecrow.team.model.request.TeamQuitRequest;
+import com.whitecrow.team.model.request.TeamUpdateRequest;
 import com.whitecrow.userteam.model.vo.TeamUserVO;
 import com.whitecrow.team.service.TeamService;
 import com.whitecrow.user.service.UserService;
@@ -43,7 +43,6 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/team")
-@CrossOrigin(origins = {"http://localhost:3000"})
 @Slf4j
 @Api(tags = "队伍管理模块")
 public class TeamController {
@@ -125,8 +124,9 @@ public class TeamController {
     @GetMapping("/get")
     @ApiOperation(value = "获取队伍")
     @ApiImplicitParam(name = "id", value = "根据id查队伍")
-
-    public BaseResponse<Team> getTeamById(long id) {
+    public BaseResponse<Team> getTeamById(HttpServletRequest request) {
+        User loginUser=userService.getLoginUser(request);
+        long id=loginUser.getId();
         if (id <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -177,6 +177,7 @@ public class TeamController {
         if (CollectionUtils.isEmpty(teamList)) {
             return ResultUtils.success(teamList);
         }
+
         final List<Long> teamIdList = teamList.stream().map(TeamUserVO::getId).collect(Collectors.toList());
         // 2、判断当前用户是否已加入队伍
         QueryWrapper<UserTeam> userTeamQueryWrapper = new QueryWrapper<>();

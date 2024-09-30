@@ -7,9 +7,9 @@ import com.whitecrow.common.BaseResponse;
 import com.whitecrow.common.ErrorCode;
 import com.whitecrow.common.ResultUtils;
 import com.whitecrow.exception.BusinessException;
-import com.whitecrow.model.domain.User;
-import com.whitecrow.user.request.UserLoginRequest;
-import com.whitecrow.user.request.UserRegisterRequest;
+import com.whitecrow.user.model.domain.User;
+import com.whitecrow.user.model.request.UserLoginRequest;
+import com.whitecrow.user.model.request.UserRegisterRequest;
 import com.whitecrow.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,7 +36,6 @@ import static com.whitecrow.constant.UserConstant.USER_LOGIN_STATE;
  */
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = {"http://localhost:3000"})
 @Slf4j
 public class UserController {
     @Resource
@@ -65,6 +64,8 @@ public class UserController {
         if (userLoginRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
+        System.out.println("-----------"+ request.getSession().getId());
+        log.info("session-----"+   request.getHeader("Set-Cookie"));
         String userAccount = userLoginRequest.getUserAccount();
         String userPassword = userLoginRequest.getUserPassword();
         if (StringUtils.isAnyBlank(userAccount, userPassword)) {
@@ -155,12 +156,15 @@ public class UserController {
         if (userPage != null) {
             return ResultUtils.success(userPage);
         }
+        log.info("没有缓存");
         // 无缓存，查数据库
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.ne("id",loginUser.getId());
         userPage = userService.page(new Page<>(pageNum, pageSize), queryWrapper);
         // 写缓存
         try {
-            valueOperations.set(redisKey, userPage, 30000, TimeUnit.MILLISECONDS);
+            valueOperations.set(redisKey, userPage, 30, TimeUnit.MINUTES);
+            log.info("我缓存了");
         } catch (Exception e) {
             log.error("redis set key error", e);
         }

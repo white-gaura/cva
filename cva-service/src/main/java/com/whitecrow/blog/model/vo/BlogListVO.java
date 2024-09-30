@@ -1,11 +1,14 @@
 package com.whitecrow.blog.model.vo;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author WhiteCrow
  */
+@Data
 public class BlogListVO implements Serializable {
     private static final long serialVersionUID = 7806071037642673665L;
     /**
@@ -26,12 +29,17 @@ public class BlogListVO implements Serializable {
     /**
      * 点赞数量
      */
-    private Integer likedNum;
+    private String likedNum;
 
     /**
      * 评论数量
      */
-    private Integer commentsNum;
+//    private String commentsNum;
+
+    /**
+     * 阅读数量
+     */
+    private String viewsNum;
 
     /**
      * 创建时间

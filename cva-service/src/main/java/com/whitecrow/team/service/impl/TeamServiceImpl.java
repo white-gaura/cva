@@ -5,16 +5,17 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.whitecrow.common.ErrorCode;
 import com.whitecrow.exception.BusinessException;
 import com.whitecrow.user.mapper.ListTeamUserMapper;
-import com.whitecrow.mapper.TeamMapper;
-import com.whitecrow.model.domain.Team;
-import com.whitecrow.model.domain.User;
-import com.whitecrow.model.domain.UserTeam;
+import com.whitecrow.team.mapper.TeamMapper;
+import com.whitecrow.team.model.domain.Team;
+import com.whitecrow.user.model.domain.User;
+import com.whitecrow.user.model.domain.UserTeam;
 import com.whitecrow.team.model.dto.TeamQuery;
 import com.whitecrow.team.model.enums.TeamStatusEnum;
-import com.whitecrow.team.request.TeamJoinRequest;
-import com.whitecrow.team.request.TeamQuitRequest;
-import com.whitecrow.team.request.TeamUpdateRequest;
+import com.whitecrow.team.model.request.TeamJoinRequest;
+import com.whitecrow.team.model.request.TeamQuitRequest;
+import com.whitecrow.team.model.request.TeamUpdateRequest;
 
+import com.whitecrow.userteam.mapper.UserTeamMapper;
 import com.whitecrow.userteam.model.vo.TeamUserVO;
 import com.whitecrow.user.model.vo.UserVO;
 import com.whitecrow.team.service.TeamService;
@@ -69,6 +70,9 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
 
     @Resource
     ListTeamUserMapper listTeamUserMapper;
+
+    @Resource
+    UserTeamMapper userTeamMapper;
 
 
     @Override
@@ -222,7 +226,7 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
             }
             teamUserVOList.add(teamUserVO);
             teamUserVO.setUserTeamList(getUserTeamList(team.getId()));
-            teamUserVO.setHasJoinNum(hasJoinNum(team.getId()));
+            teamUserVO.setHasJoinNum((int) this.countTeamUserByTeamId(team.getId()));
         }
         return teamUserVOList;
     }
@@ -433,12 +437,7 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
         }
         return listTeamUserMapper.listTeamUsers(teamId);
     }
-    private Integer hasJoinNum(Long teamId){
-        if(teamId==null||teamId<=0){
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
-        }
-        return listTeamUserMapper.hasJoinNum(teamId);
-    }
+
 }
 
 

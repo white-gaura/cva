@@ -4,8 +4,8 @@ package com.whitecrow.blog.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.whitecrow.blog.service.BlogLikeService;
-import com.whitecrow.mapper.BlogLikeMapper;
-import com.whitecrow.model.domain.BlogLike;
+import com.whitecrow.blog.mapper.BlogLikeMapper;
+import com.whitecrow.blog.model.domain.BlogLike;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,12 +1,12 @@
 package com.whitecrow.team.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.whitecrow.model.domain.Team;
-import com.whitecrow.model.domain.User;
+import com.whitecrow.team.model.domain.Team;
+import com.whitecrow.user.model.domain.User;
 import com.whitecrow.team.model.dto.TeamQuery;
-import com.whitecrow.team.request.TeamJoinRequest;
-import com.whitecrow.team.request.TeamQuitRequest;
-import com.whitecrow.team.request.TeamUpdateRequest;
+import com.whitecrow.team.model.request.TeamJoinRequest;
+import com.whitecrow.team.model.request.TeamQuitRequest;
+import com.whitecrow.team.model.request.TeamUpdateRequest;
 import com.whitecrow.userteam.model.vo.TeamUserVO;
 
 import java.util.List;

@@ -6,9 +6,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.whitecrow.common.ErrorCode;
 import com.whitecrow.exception.BusinessException;
-import com.whitecrow.mapper.UserMapper;
-import com.whitecrow.model.domain.User;
-import com.whitecrow.user.request.UserRegisterRequest;
+import com.whitecrow.user.mapper.UserMapper;
+import com.whitecrow.user.model.domain.User;
+import com.whitecrow.user.model.request.UserRegisterRequest;
 import com.whitecrow.utils.AlgorithmUtils;
 import com.whitecrow.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -206,7 +206,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public int updateUser(User user, User loginUser) {
-        long userId=user.getId();
+        long userId=loginUser.getId();
         if(userId<=0){
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -218,6 +218,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         if(oldUser==null){
             throw new BusinessException(ErrorCode.NULL_ERROR);
         }
+        user.setId(oldUser.getId());
         return userMapper.updateById(user);
     }
 
@@ -254,8 +255,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         List<User> userList = this.list(queryWrapper);
         String tag = loginUser.getTag();
         Gson gson = new Gson();
-        List<String> tagList = gson.fromJson(tag, new TypeToken<List<String>>() {
-        }.getType());
+        List<String> tagList = gson.fromJson(tag, new TypeToken<List<String>>() {}.getType());
         // 用户列表的下标 => 相似度
         List<Pair<User, Long>> list = new ArrayList<>();
         // 依次计算所有用户和当前用户的相似度

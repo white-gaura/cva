@@ -2,7 +2,7 @@ package com.whitecrow.blog.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.whitecrow.model.domain.BlogLike;
+import com.whitecrow.blog.model.domain.BlogLike;
 
 /**
 * @author WhiteCrow

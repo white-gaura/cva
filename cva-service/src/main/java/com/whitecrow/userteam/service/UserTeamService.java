@@ -1,7 +1,7 @@
 package com.whitecrow.userteam.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.whitecrow.model.domain.UserTeam;
+import com.whitecrow.user.model.domain.UserTeam;
 
 /**
 * @author WhiteCrow

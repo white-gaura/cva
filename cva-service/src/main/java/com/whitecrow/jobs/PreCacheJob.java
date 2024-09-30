@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.whitecrow.constant.RedisConstant;
 import com.whitecrow.constant.RedissonConstant;
-import com.whitecrow.model.domain.User;
+import com.whitecrow.user.model.domain.User;
 import com.whitecrow.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
@@ -16,7 +16,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -55,7 +54,7 @@ public class PreCacheJob {
                     userIPage = userService.page(new Page<>(1, 20), queryWrapper);
                     try {
                         // 放入到 redis 中
-                        // 这里就算是放入失败也不需要报异常信息
+                                // 这里就算是放入失败也不需要报异常信息
                         // redis 一定要设置过期时间
                         valueOperations.set(redisKey, userIPage, 10, TimeUnit.MINUTES);
                     } catch (Exception e) {

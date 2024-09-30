@@ -1,7 +1,7 @@
 package com.whitecrow.user.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.whitecrow.mapper.TeamMapper;
+import com.whitecrow.team.mapper.TeamMapper;
 import com.whitecrow.user.model.vo.UserVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

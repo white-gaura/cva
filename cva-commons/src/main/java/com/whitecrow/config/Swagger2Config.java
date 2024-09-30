@@ -35,8 +35,8 @@ public class Swagger2Config {
 
     private ApiInfo adminApiInfo(){
         return new ApiInfoBuilder()
-                .title("竞赛组队")
-                .description("系统接口描述")
+                .title("")
+                .description("")
                 .version("1.0")
                 .contact(new Contact("白","http://baidu.com","18@qq.com"))
                 .build();

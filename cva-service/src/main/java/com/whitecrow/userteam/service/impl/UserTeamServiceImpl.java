@@ -1,8 +1,8 @@
 package com.whitecrow.userteam.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.whitecrow.mapper.UserTeamMapper;
-import com.whitecrow.model.domain.UserTeam;
+import com.whitecrow.userteam.mapper.UserTeamMapper;
+import com.whitecrow.user.model.domain.UserTeam;
 import com.whitecrow.userteam.service.UserTeamService;
 import org.springframework.stereotype.Service;
 

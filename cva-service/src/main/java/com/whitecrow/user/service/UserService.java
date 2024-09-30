@@ -2,8 +2,8 @@ package com.whitecrow.user.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.whitecrow.model.domain.User;
-import com.whitecrow.user.request.UserRegisterRequest;
+import com.whitecrow.user.model.domain.User;
+import com.whitecrow.user.model.request.UserRegisterRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
